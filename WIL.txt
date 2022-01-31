@@ -6,4 +6,6 @@
 		create electron/main.js (create window)
 		add start and build scripts in package.json
 
-
+-- React
+	-- single page application (SPA) with react-router-dom
+	-- Class based components

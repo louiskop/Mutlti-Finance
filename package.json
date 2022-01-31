@@ -16,7 +16,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev" : "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron\"",
+    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -46,6 +46,7 @@
     "electron": "^16.0.8",
     "electron-builder": "^22.14.5",
     "is-dev": "^0.1.4",
+    "react-router-dom": "^6.2.1",
     "wait-on": "^6.0.0"
   }
 }
