@@ -1,0 +1,9 @@
+
+-- Project setup
+	-- Setup React and electron working together
+		npx create-electron-app .
+		npm i -D electron electron-builder wait-on electron-is-dev concurrently
+		create electron/main.js (create window)
+		add start and build scripts in package.json
+
+
