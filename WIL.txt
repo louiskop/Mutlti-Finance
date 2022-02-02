@@ -9,3 +9,6 @@
 -- React
 	-- single page application (SPA) with react-router-dom
 	-- Class based components
+
+-- Css
+	-- Css grid layouts

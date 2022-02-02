@@ -3,6 +3,7 @@
 import React, { Component} from 'react';
 
 // user imports
+import "../../css/pages/AddTrans.css";
 
 
 class AddTrans extends Component {
@@ -11,7 +12,7 @@ class AddTrans extends Component {
 
         return (
 
-            <div>
+            <div className="addTrans">
                 <h2>Here you can add a transaction</h2>
             </div>
 

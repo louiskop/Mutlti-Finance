@@ -1,0 +1,54 @@
+
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    grid-template-rows: 1fr 20fr;
+    height: 100vh;
+}
+
+.heading{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-column: 1/10;
+    font-size: 0.7rem;
+    color: #EAF2EF;
+    border-bottom: 1px solid #1b1b1f;
+    background-color: #0d0324;
+    
+}
+
+.navbar {
+    background-color: #0d0324;
+}
+
+.content {
+    display: grid;
+    background-color: #24104F;
+    color: #EAF2EF;
+}
+
+.navbar ul {
+    display: grid;
+    height: 100%;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 10fr;
+}
+
+.navbar ul li {
+    display: grid;
+    border-bottom: 1px solid #1b1b1f;
+}
+
+.navbar ul li a {
+    display: grid;
+    align-items: center;
+    justify-items: end;
+    padding-right: 10%;
+    text-decoration: none;
+    color: #EAF2EF;
+}
+
+.active {
+    border-bottom: 1px solid #E56399;
+}

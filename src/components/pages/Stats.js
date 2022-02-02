@@ -3,6 +3,7 @@
 import React, { Component} from 'react';
 
 // user imports
+import "../../css/pages/Stats.css";
 
 
 class Stats extends Component {
@@ -11,8 +12,8 @@ class Stats extends Component {
 
         return (
 
-            <div>
-                <h1>Stats</h1>
+            <div className="stats">
+                <h2>Stats</h2>
             </div>
 
         );

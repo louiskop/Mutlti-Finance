@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 
 // user imports
+import "../../css/pages/Balances.css";
 
 
 class Balances extends Component {
@@ -11,7 +12,7 @@ class Balances extends Component {
 
         return (
 
-            <div>
+            <div className="balances">
                 <h2>Here displays your balances</h2>
             </div>
             
