@@ -8,14 +8,31 @@
 
 .heading{
     display: grid;
-    align-items: center;
-    justify-items: center;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 8fr 1fr;
     grid-column: 1/10;
     font-size: 0.7rem;
     color: #EAF2EF;
     border-bottom: 1px solid #1b1b1f;
     background-color: #0d0324;
-    
+    -webkit-app-region: drag;
+}
+
+.exitButtons {
+    grid-column: 3/4;
+    align-self: center;
+    justify-self: end;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+}
+
+.heading h1{
+    grid-column: 2/3;
+    justify-self: center;
+    align-self: center;
 }
 
 .navbar {

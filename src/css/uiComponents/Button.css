@@ -1,0 +1,20 @@
+
+/* all buttons */
+
+
+/*  button styles */
+.menuBar{
+    background-color:transparent;
+    -webkit-app-region: no-drag;
+    color: #EAF2EF;
+    border: none;
+}
+
+/* button hover styles */
+.redHover:hover{
+    background-color: #E56399;
+}
+
+.grayHover:hover{
+    background-color: #6b6b6b;
+}

@@ -10,8 +10,22 @@ import IncomeExpense from "./components/pages/IncomeExpense";
 import Stats from "./components/pages/Stats";
 import Edit from "./components/pages/Edit";
 import AddTrans from "./components/pages/AddTrans";
+import Button from "./components/uiComponents/Button";
+
+// electron imports
+import { channels } from './shared/constants';
+const { ipcRenderer } = window.require('electron');
 
 class App extends Component {
+
+  closeWindow() {
+    ipcRenderer.send(channels.CLOSE_WINDOW);
+  }
+
+  minWindow() {
+    ipcRenderer.send(channels.MIN_WINDOW);
+  }
+
   render() {
     return (
       <HashRouter>
@@ -19,6 +33,11 @@ class App extends Component {
 
           <div className="heading">
             <h1>Multi-Finance</h1>
+            <div className="exitButtons">
+              <Button onClick={this.minWindow} buttonStyle="menuBar" hoverStyle="grayHover"><i className="fas fa-window-minimize"></i></Button>
+              <Button onClick={this.closeWindow} buttonStyle="menuBar" hoverStyle="redHover"><i className="fas fa-times"></i></Button>
+            </div>
+            
           </div>
 
           <div className="navbar">
@@ -38,7 +57,7 @@ class App extends Component {
               <li>
                 <NavLink to="/edit">Edit</NavLink>
               </li>
-              <li class="navbar_reserved">
+              <li className="navbar_reserved">
               </li>
             </ul>
           </div>
