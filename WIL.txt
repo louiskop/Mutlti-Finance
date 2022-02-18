@@ -6,11 +6,25 @@
 		create electron/main.js (create window)
 		add start and build scripts in package.json
 
+-- React & Electron
+	-- Communication between React and Electron using ipcMain and channel messages
+
+
 -- React
 	-- single page application (SPA) with react-router-dom
 	-- Class based components
 	-- Functional components
 	-- props
+	-- state, setState, prevState in class-based and functional components
+	-- React Component lifecycle 
+		-- Initialization
+		-- Mounting
+		-- Updating
+		-- Unmounting
+	-- React hooks for functional components
+		-- useState()
+		-- useEffect()
 
 -- Css
 	-- Css grid layouts
+
