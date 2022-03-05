@@ -90,7 +90,7 @@ ipcMain.on(channels.SAVE_DATA_IN_STORAGE, (event, message) => {
     accountsToTrack.push(message);
 
     // save in storage
-    accountsToTrack.set('accounts', accountsToTrack, (error) =>{
+    storage.set('accounts', accountsToTrack, (error) =>{
 
         if(error){
 

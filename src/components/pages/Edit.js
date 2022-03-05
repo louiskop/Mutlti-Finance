@@ -13,6 +13,7 @@ const { ipcRenderer } = window.require('electron');
 const Edit = () => {
 
     const [accounts, setAccounts] = useState([]);
+    const [nameVal, setNameVal] = useState('');
 
     // save account
     const addAccount = (account) => {
@@ -33,12 +34,27 @@ const Edit = () => {
         setAccounts([...accounts, data.message]);  
     };
 
+    // handle input form change
+    const handleChange = (event, data) => {
+        setNameVal(event.target.value);  
+    }
+
+    // form submit
+    const handleSubmit = (event, data) => {
+        saveDataInStorage({
+            'name': event.target.value
+        });
+        event.preventDefault();
+    }
+
     return (
 
         <div className="edit">
             <h2>Edit your accounts heres</h2>
-            <button >Add your new account</button>
-            <input></input>
+            <form onSubmit={handleSubmit}>
+            <input type="text" value={nameVal} onChange={handleChange}/>
+            <input type="submit" value="Add your account"/>
+            </form>
         </div>
 
     );
