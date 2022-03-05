@@ -43,7 +43,12 @@ const Edit = () => {
     const handleSubmit = (event, data) => {
         console.log(`HANDLESUBMIT : ${nameVal}`);
         addAccount({
-            name: nameVal
+            name: nameVal,
+            balance: 400,
+            goalBalance: 600,
+            percentIncome: 20,
+            priority: true,
+            record: 0,
         });
         event.preventDefault();
         setNameVal('');

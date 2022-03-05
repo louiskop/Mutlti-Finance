@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import "../../css/pages/Balances.css";
 import { loadSavedData } from "../../shared/storageFuncs";
 import { channels } from "../../shared/constants";
+import BalanceCard from "../uiComponents/BalanceCard";
 
 // electron imports
 const { ipcRenderer } = window.require('electron');
@@ -39,7 +40,7 @@ const Balances = () => {
 
         <div className="balances">
             <h2>Here displays your balances</h2>
-            { accounts.map(account => <p key={account.name + accounts.indexOf(account)} >{account.name}</p>) }
+            { accounts.map(account => <BalanceCard account={account} editable={false} />) }
         </div>
         
     );
