@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 // user imports
 import "../../css/pages/Balances.css";
 import { loadSavedData } from "../../shared/storageFuncs";
-import { HANDLE_FETCH_DATA } from "../../shared/constants";
+import { channels } from "../../shared/constants";
 
 // electron imports
 const { ipcRenderer } = window.require('electron');
@@ -13,7 +13,6 @@ const { ipcRenderer } = window.require('electron');
 const Balances = () => {
 
     const [accounts, setAccounts] = useState([]);
-    
 
     // get saved data
     useEffect(() => {
@@ -22,16 +21,17 @@ const Balances = () => {
 
     // listen for handler for fetch
     useEffect(() => {
-        ipcRenderer.on(HANDLE_FETCH_DATA, handleReceiveData);
+        ipcRenderer.on(channels.HANDLE_FETCH_DATA, handleReceiveData);
         return () => {
-            ipcRenderer.removeListener(HANDLE_FETCH_DATA, handleReceiveData);
+            ipcRenderer.removeListener(channels.HANDLE_FETCH_DATA, handleReceiveData);
         };
     });
 
     // callback function
     const handleReceiveData = (event, data) => {
-        console.log("[+] Data received on React!!!");
-        // setAccounts([...data.message]]);
+        // TODO: error handling
+        console.log("[+] Data received.");
+        setAccounts([...data.message]);
     };
 
     
@@ -39,6 +39,7 @@ const Balances = () => {
 
         <div className="balances">
             <h2>Here displays your balances</h2>
+            { accounts.map(account => <p>{account.name}</p>) }
         </div>
         
     );

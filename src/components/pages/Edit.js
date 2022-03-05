@@ -14,10 +14,8 @@ const Edit = () => {
 
     const [accounts, setAccounts] = useState([]);
 
-
     // save account
     const addAccount = (account) => {
-        console.log("[+] React called addAccount() which will call saveDatainStorage()");
         saveDataInStorage(account);
     };
 
@@ -31,7 +29,7 @@ const Edit = () => {
 
     // callback function
     const handleNewAccount = (event, data) => {
-        console.log("[+] React received new Item:", data.message);
+        console.log("[+] Data saved success.");
         setAccounts([...accounts, data.message]);  
     };
 

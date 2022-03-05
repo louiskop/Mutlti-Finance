@@ -4,9 +4,13 @@ const { app, BrowserWindow} = require('electron');
 const isDev = require('electron-is-dev');
 const { ipcMain } = require('electron/main');
 const { channels } = require('../src/shared/constants');
+const storage = require('electron-json-storage');
 
-
+// variables
 let mainWindow;
+let accountsToTrack;
+
+console.log("\nINFORMATION: \n --Storage:" + app.getPath('userData') + "\n");
 
 function createWindow() {
 
@@ -52,22 +56,59 @@ ipcMain.on(channels.CLOSE_WINDOW, (event, arg) => {
 // storage events
 ipcMain.on(channels.FETCH_DATA_FROM_STORAGE, (event, message) => {
 
-    console.log("[+] Electron received: FETCH_DATA_FROM_STORAGE with a message:" , message);
+    console.log(`[+] Fetching data from storage with key ${message} ...`);
 
-    console.log("[+] Sending message on channel HANDLE_FETCH_DATA from Electron with message");
+    // fetch data from storage
+    storage.get(message, (error, data) => {
 
-    mainWindow.send(channels.HANDLE_FETCH_DATA, {
-        success: true,
-        message: message,
+        accountsToTrack = JSON.stringify(data) === '{}' ? [] : data;
+
+        if(error){
+
+            mainWindow.send(channels.HANDLE_FETCH_DATA, {
+                success: false,
+                message: "accountsToTrack not returned"
+            });
+
+        }else {
+
+            mainWindow.send(channels.HANDLE_FETCH_DATA, {
+                success: true,
+                message: accountsToTrack,
+            });
+
+        }
     });
 
 });
 
 ipcMain.on(channels.SAVE_DATA_IN_STORAGE, (event, message) => {
 
-    console.log("[+] Electron received: SAVE_DATA_IN_STORAGE with a message:" , message);
+    console.log(`[+] Saving data ${message} in storage ...`);
 
-    console.log("[+] Sending message on channel HANDLE_SAVE_DATA from Electron with message");
+    // add new data to accountsToTrack
+    accountsToTrack.push(message);
+
+    // save in storage
+    accountsToTrack.set('accounts', accountsToTrack, (error) =>{
+
+        if(error){
+
+            mainWindow.send(HANDLE_SAVE_DATA, {
+                success: false,
+                message: "Could not save the new data"
+            });
+
+        }else {
+
+            mainWindow.send(HANDLE_SAVE_DATA, {
+                success: true,
+                message: accountsToTrack
+            });
+
+        }
+
+    });
 
     mainWindow.send(channels.HANDLE_SAVE_DATA, {
         success: true,
