@@ -41,10 +41,12 @@ const Edit = () => {
 
     // form submit
     const handleSubmit = (event, data) => {
-        saveDataInStorage({
-            'name': event.target.value
+        console.log(`HANDLESUBMIT : ${nameVal}`);
+        addAccount({
+            name: nameVal
         });
         event.preventDefault();
+        setNameVal('');
     }
 
     return (

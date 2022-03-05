@@ -84,7 +84,7 @@ ipcMain.on(channels.FETCH_DATA_FROM_STORAGE, (event, message) => {
 
 ipcMain.on(channels.SAVE_DATA_IN_STORAGE, (event, message) => {
 
-    console.log(`[+] Saving data ${message} in storage ...`);
+    console.log(`[+] Saving data ${message.name} in storage ...`);
 
     // add new data to accountsToTrack
     accountsToTrack.push(message);
@@ -94,14 +94,14 @@ ipcMain.on(channels.SAVE_DATA_IN_STORAGE, (event, message) => {
 
         if(error){
 
-            mainWindow.send(HANDLE_SAVE_DATA, {
+            mainWindow.send(channels.HANDLE_SAVE_DATA, {
                 success: false,
                 message: "Could not save the new data"
             });
 
         }else {
 
-            mainWindow.send(HANDLE_SAVE_DATA, {
+            mainWindow.send(channels.HANDLE_SAVE_DATA, {
                 success: true,
                 message: accountsToTrack
             });

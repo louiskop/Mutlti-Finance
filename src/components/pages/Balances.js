@@ -39,7 +39,7 @@ const Balances = () => {
 
         <div className="balances">
             <h2>Here displays your balances</h2>
-            { accounts.map(account => <p>{account.name}</p>) }
+            { accounts.map(account => <p key={account.name + accounts.indexOf(account)} >{account.name}</p>) }
         </div>
         
     );
