@@ -1,0 +1,24 @@
+.ListItem{
+    width: 100%;
+    height: 10%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 5fr 1fr;
+    justify-items: center;
+    align-items: center;
+    border-bottom: 1px solid #1b1b1f;
+}
+
+#ListItemName {
+    justify-self: left;
+    margin-left: 3rem;
+}
+
+#ListItemBalance {
+    border-bottom: 1px solid #E56399;
+    background-color: #0d0324;
+    border:none;
+    color: #EAF2EF;
+    font-size: 2rem;
+    width: 50%;
+}

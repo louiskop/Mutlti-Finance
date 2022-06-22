@@ -16,6 +16,7 @@
     border-bottom: 1px solid #1b1b1f;
     background-color: #0d0324;
     -webkit-app-region: drag;
+    height: 5vh;
 }
 
 .exitButtons {
@@ -37,12 +38,14 @@
 
 .navbar {
     background-color: #0d0324;
+    height: 95vh;
 }
 
 .content {
     display: grid;
     background-color: #24104F;
     color: #EAF2EF;
+    height: 95vh;
 }
 
 .navbar ul {

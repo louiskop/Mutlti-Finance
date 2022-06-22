@@ -14,6 +14,7 @@ const { ipcRenderer } = window.require('electron');
 const Balances = () => {
 
     const [accounts, setAccounts] = useState([]);
+    const [totalBalance, setTotalBalance] = useState(0);
 
     // get saved data
     useEffect(() => {
@@ -35,12 +36,25 @@ const Balances = () => {
         setAccounts([...data.message]);
     };
 
+    // get total balance
+    useEffect(() => {
+        let computedBalance = 0;
+        accounts.forEach(acc => {
+            computedBalance += acc.balance;
+        });
+        setTotalBalance(computedBalance);
+    }, [accounts])
+
     
     return (
 
         <div className="balances">
-            <h2>Here displays your balances</h2>
-            { accounts.map(account => <BalanceCard account={account} editable={false} />) }
+            <div className="totBal">
+                <h2>R { totalBalance }</h2>
+            </div>
+            <div className="cards">
+                { accounts.map(account => <BalanceCard account={account} editable={false} />) }
+            </div>
         </div>
         
     );

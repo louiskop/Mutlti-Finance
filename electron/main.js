@@ -9,14 +9,14 @@ const storage = require('electron-json-storage');
 // variables
 let mainWindow;
 let accountsToTrack;
+let overWrite = false;
 
 console.log("\nINFORMATION: \n --Storage:" + app.getPath('userData') + "\n");
 
 function createWindow() {
 
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        fullscreen: true,
         show: false,
         frame: false,
         autoHideMenuBar: true,
@@ -86,8 +86,20 @@ ipcMain.on(channels.SAVE_DATA_IN_STORAGE, (event, message) => {
 
     console.log(`[+] Saving data ${message.name} in storage ...`);
 
+    // check if data exists to overwrite
+    accountsToTrack.map(account => {
+        if(account.name == message.name){
+            overWrite = true;
+            accountsToTrack[accountsToTrack.indexOf(account)] = message;
+        }
+    })
+
     // add new data to accountsToTrack
-    accountsToTrack.push(message);
+    if(!overWrite){
+        accountsToTrack.push(message);
+    }
+
+    overWrite = false;
 
     // save in storage
     storage.set('accounts', accountsToTrack, (error) =>{

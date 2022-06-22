@@ -1,10 +1,9 @@
 
 // internal imports
-import React, {Component} from 'react';
+import React from 'react';
 
 // user imports
 import '../../css/uiComponents/BalanceCard.css';
-
 import Button from '../uiComponents/Button';
 
 const balanceCard = ({account, editable}) => {
@@ -19,7 +18,10 @@ const balanceCard = ({account, editable}) => {
             <div className="graph"></div>
             <p className={aboveGoal ? "above" : "below"}>3% {aboveGoal ? "above" : "below"} goal</p>
             <p className={account.priority ? "priority" : ""}>{account.priority ? "PR" : ""}</p>
-            <Button buttonStyle="recentTrans" className="recentTrans" >Recent transactions</Button>
+            <Button buttonStyle="recentTrans" className="recentTrans" >
+                <p>Recent Transactions</p>
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </Button>
         </div>
     );
 

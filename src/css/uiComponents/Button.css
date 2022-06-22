@@ -10,6 +10,12 @@
     border: none;
 }
 
+.recentTrans{
+    background-color: #E56399;
+    border: none;
+    border-radius: 0 0 1rem 1rem;
+}
+
 /* button hover styles */
 .redHover:hover{
     background-color: #E56399;

@@ -3,4 +3,39 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    grid-template-rows: 1fr 4fr;
+    height: 95vh;
+    overflow: hidden;
+}
+
+.totBal {
+    width: 100%;
+    height: 100%;
+    grid-row: 1/2;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.totBal h2{
+    border-bottom: 1px solid #E56399;
+    font-size: 3rem;
+    width: 10%;
+    margin: auto;
+    text-align: center;
+}
+
+.cards {
+    margin-top: 6rem;
+    padding-bottom: 7.5rem;
+    width: 100%;
+    height: 100%;
+    grid-row: 2/3;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 5rem;
+    overflow: scroll;
 }

@@ -6,6 +6,8 @@ import React, { useState, useEffect } from 'react';
 import "../../css/pages/Edit.css";
 import { saveDataInStorage } from "../../shared/storageFuncs";
 import { channels } from "../../shared/constants";
+import { loadSavedData } from "../../shared/storageFuncs";
+import ListItem from "../uiComponents/ListItem";
 
 // electron imports
 const { ipcRenderer } = window.require('electron');
@@ -14,6 +16,31 @@ const Edit = () => {
 
     const [accounts, setAccounts] = useState([]);
     const [nameVal, setNameVal] = useState('');
+    const [reserve, setReserve] = useState(0);
+
+    // load data
+
+    // get saved data
+    useEffect(() => {
+        loadSavedData();
+    },[]);
+
+    // listen for handler for fetch
+    useEffect(() => {
+        ipcRenderer.on(channels.HANDLE_FETCH_DATA, handleReceiveData);
+        return () => {
+            ipcRenderer.removeListener(channels.HANDLE_FETCH_DATA, handleReceiveData);
+        };
+    });
+
+    // callback function
+    const handleReceiveData = (event, data) => {
+        // TODO: error handling
+        console.log("[+] Data received.");
+        setAccounts([...data.message]);
+    };
+
+    // add new data
 
     // save account
     const addAccount = (account) => {
@@ -54,14 +81,27 @@ const Edit = () => {
         setNameVal('');
     }
 
+    // change reserve amount
+    const changeReserve = (amount) => {
+        let newAmount = reserve + amount;
+        setReserve(newAmount);
+    }
+
     return (
 
         <div className="edit">
-            <h2>Edit your accounts heres</h2>
-            <form onSubmit={handleSubmit}>
-            <input type="text" value={nameVal} onChange={handleChange}/>
-            <input type="submit" value="Add your account"/>
+            <div className="reserveDiv">
+                <h1>Reserve - R {reserve}</h1>
+            </div>
+            <form className="addAcc" onSubmit={handleSubmit}>
+                <input type="text" placeholder="Add a new account" value={nameVal} onChange={handleChange}/>
+                <input type="submit" value="Add your account"/>
             </form>
+            <div className="accountListDiv">
+                { accounts.map(account => <ListItem changeReserve={changeReserve} account={account}/>) }
+            </div>
+
+
         </div>
 
     );

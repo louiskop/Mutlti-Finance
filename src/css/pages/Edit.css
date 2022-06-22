@@ -3,4 +3,33 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    grid-template-rows: 4fr 1fr 12fr;
+}
+
+.reserveDiv {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.reserveDiv h1{
+    border-bottom: 1px solid #E56399;
+    font-size: 3rem;
+    margin: auto;
+}
+
+.addAcc input {
+    border: none;
+    background-color: #24104F;
+    border-bottom: 1px solid #1b1b1f;
+    color: #EAF2EF;
+}
+
+.accountListDiv{
+    width: 95%;
+    height: 40rem;
+    background-color: #0d0324;
+    overflow-y: scroll;
 }
