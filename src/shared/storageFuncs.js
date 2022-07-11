@@ -9,3 +9,7 @@ export function loadSavedData() {
 export function saveDataInStorage(account) {
     ipcRenderer.send(channels.SAVE_DATA_IN_STORAGE, account);
 }
+
+export function deleteDataInStorage(account) {
+    ipcRenderer.send(channels.DELETE_DATA_IN_STORAGE, account);
+}

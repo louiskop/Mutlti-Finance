@@ -7,6 +7,7 @@ import "../../css/pages/Edit.css";
 import { saveDataInStorage } from "../../shared/storageFuncs";
 import { channels } from "../../shared/constants";
 import { loadSavedData } from "../../shared/storageFuncs";
+import { deleteDataInStorage } from '../../shared/storageFuncs';
 import ListItem from "../uiComponents/ListItem";
 
 // electron imports
@@ -17,6 +18,7 @@ const Edit = () => {
     const [accounts, setAccounts] = useState([]);
     const [nameVal, setNameVal] = useState('');
     const [reserve, setReserve] = useState(0);
+    let duplicate = false;
 
     // load data
 
@@ -36,7 +38,6 @@ const Edit = () => {
     // callback function
     const handleReceiveData = (event, data) => {
         // TODO: error handling
-        console.log("[+] Data received.");
         setAccounts([...data.message]);
     };
 
@@ -58,7 +59,20 @@ const Edit = () => {
     // callback function
     const handleNewAccount = (event, data) => {
         console.log("[+] Data saved success.");
-        setAccounts([...accounts, data.message]);  
+
+        // prevent duplicate rendering based balance edit
+        accounts.map(account => {
+            if (account.name == data.message.name){
+                duplicate = true;
+            }
+        });
+
+        if(!duplicate){
+            setAccounts([...accounts, data.message]);  
+        }
+
+        duplicate = false;
+
     };
 
     // handle input form change
@@ -68,7 +82,9 @@ const Edit = () => {
 
     // form submit
     const handleSubmit = (event, data) => {
-        console.log(`HANDLESUBMIT : ${nameVal}`);
+
+        // TODO: validation (samename)
+
         addAccount({
             name: nameVal,
             balance: 400,
@@ -83,8 +99,25 @@ const Edit = () => {
 
     // change reserve amount
     const changeReserve = (amount) => {
-        let newAmount = reserve + amount;
+        let newAmount = parseInt(reserve) + parseInt(amount);
         setReserve(newAmount);
+    }
+
+    // delete a item
+    const deleteItem = (acc) => {
+
+        // find & delete item locally
+        accounts.map((account) => {
+            if(account.name == acc.name){
+                let newAcc = accounts;
+                newAcc.splice(accounts.indexOf(account),1)
+                setAccounts(newAcc);
+            }
+        });
+
+        // delete item in storage
+        deleteDataInStorage(acc);
+
     }
 
     return (
@@ -98,7 +131,7 @@ const Edit = () => {
                 <input type="submit" value="Add your account"/>
             </form>
             <div className="accountListDiv">
-                { accounts.map(account => <ListItem changeReserve={changeReserve} account={account}/>) }
+                { accounts.map(account => <ListItem key={account.name} changeReserve={changeReserve} deleteItem={deleteItem} account={account}/>) }
             </div>
 
 

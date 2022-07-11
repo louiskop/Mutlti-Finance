@@ -16,9 +16,19 @@
     border-radius: 0 0 1rem 1rem;
 }
 
+.iconButton {
+    background-color: transparent;
+    border: none;
+    color: #EAF2EF;
+}
+
 /* button hover styles */
 .redHover:hover{
     background-color: #E56399;
+}
+
+.redHoverIn:hover{
+    color: #E56399;
 }
 
 .grayHover:hover{

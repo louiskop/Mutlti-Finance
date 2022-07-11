@@ -111,14 +111,16 @@ ipcMain.on(channels.SAVE_DATA_IN_STORAGE, (event, message) => {
                 message: "Could not save the new data"
             });
 
-        }else {
-
-            mainWindow.send(channels.HANDLE_SAVE_DATA, {
-                success: true,
-                message: accountsToTrack
-            });
-
         }
+        // TODO: REMOVE?
+        // else {
+
+        //     mainWindow.send(channels.HANDLE_SAVE_DATA, {
+        //         success: true,
+        //         message: accountsToTrack
+        //     });
+
+        // }
 
     });
 
@@ -128,4 +130,33 @@ ipcMain.on(channels.SAVE_DATA_IN_STORAGE, (event, message) => {
     });
 
 });
+
+ipcMain.on(channels.DELETE_DATA_IN_STORAGE, (event, message) => {
+
+    console.log(`[+] deleting item ${message.name} from storage`);
+
+    // find & remove account
+    accountsToTrack.map(account => {
+
+        if(account.name == message.name){
+            console.log(accountsToTrack.indexOf(account));
+            accountsToTrack.splice(accountsToTrack.indexOf(account),1);
+        }
+
+    });
+
+    // save updated data
+    storage.set('accounts', accountsToTrack, (error) => {
+        if(error){
+
+            mainWindow.send(channels.HANDLE_SAVE_DATA, {
+                success: false,
+                message: "Could not save the new data"
+            });
+
+        }
+    });
+
+
+})
 

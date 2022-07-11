@@ -40,7 +40,7 @@ const Balances = () => {
     useEffect(() => {
         let computedBalance = 0;
         accounts.forEach(acc => {
-            computedBalance += acc.balance;
+            computedBalance += parseInt(acc.balance);
         });
         setTotalBalance(computedBalance);
     }, [accounts])

@@ -6,6 +6,7 @@ import React, {useState, useEffect} from 'react';
 import '../../css/uiComponents/ListItem.css';
 import { saveDataInStorage } from '../../shared/storageFuncs';
 import { channels } from "../../shared/constants";
+import Button from '../uiComponents/Button';
 
 // electron imports
 const { ipcRenderer } = window.require('electron');
@@ -62,8 +63,20 @@ const ListItem = (props) => {
     // callback function
     const handleNewAccount = (event, data) => {
         console.log("[+] Data saved success.");
-        setAccount(data.message);
+        // setAccount(data.message);
     };
+
+
+    // handle delete item
+    const deleteItem = (event, data) => {
+
+        // increment reserve
+        props.changeReserve(bal);
+        
+        // delete item
+        props.deleteItem(account);
+
+    }
 
 
     return(
@@ -72,6 +85,7 @@ const ListItem = (props) => {
             <form onSubmit={handleSubmit}>
                 <input type="text" value={bal} onChange={handleChange}id="ListItemBalance"/>
             </form>
+            <Button onClick={deleteItem} hoverStyle="redHoverIn" buttonStyle="iconButton" ><i className="fa fa-trash"></i></Button>
         </div>
     );
 }
