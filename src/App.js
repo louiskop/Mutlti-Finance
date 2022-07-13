@@ -14,7 +14,6 @@ import Button from "./components/uiComponents/Button";
 
 // electron imports
 import { channels } from './shared/constants';
-import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
 const { ipcRenderer } = window.require('electron');
 
 class App extends Component {
