@@ -9,6 +9,7 @@ const storage = require('electron-json-storage');
 // variables
 let mainWindow;
 let accountsToTrack;
+let transToTrack;
 let overWrite = false;
 
 console.log("\nINFORMATION: \n --Storage:" + app.getPath('userData') + "\n");
@@ -160,3 +161,50 @@ ipcMain.on(channels.DELETE_DATA_IN_STORAGE, (event, message) => {
 
 })
 
+ipcMain.on(channels.FETCH_TRANS, (event ,message) => {
+
+    storage.get(message, (error,data) => {
+
+        transToTrack = JSON.stringify(data) === '{}' ? [] : data
+
+        if(error){
+
+            mainWindow.send(channels.HANDLE_FETCH_TRANS, {
+                success: false,
+                message: 'Could not fetch the transactions'
+            });
+
+        } else { 
+
+            mainWindow.send(channels.HANDLE_FETCH_TRANS, {
+                success: true,
+                message: message,
+            });
+        }
+
+    });
+
+});
+
+ipcMain.on(channels.SAVE_TRANS, (event,message) => {
+
+    transToTrack.push(message);
+
+
+    storage.save('trans', transToTrack, (error) => {
+
+        if(error){
+            mainWindow.send(channels.HANDLE_SAVE_TRANS, {
+                success: false,
+                message: 'could not save transaction'
+            });
+        }
+
+    });
+
+    mainWindow.send(channels.HANDLE_SAVE_TRANS, {
+        success: true,
+        message: message,
+    })
+
+});

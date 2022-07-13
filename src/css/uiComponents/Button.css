@@ -22,6 +22,32 @@
     color: #EAF2EF;
 }
 
+.floatAct{
+    position: absolute;
+    background-color: #E56399;
+    color: #EAF2EF;
+    border-radius: 50%;
+    left:90vw;
+    top: 85vh;
+    width: 6rem;
+    height: 6rem;
+    border: none;
+}
+
+.exitPopup {
+    position: absolute;
+    top: 8rem;
+    right: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    background-color: #24104F;
+}
+
+
 /* button hover styles */
 .redHover:hover{
     background-color: #E56399;
@@ -33,4 +59,9 @@
 
 .grayHover:hover{
     background-color: #6b6b6b;
+}
+
+.whiteHover:hover{
+    background-color: #EAF2EF;
+    color: #E56399;
 }

@@ -52,7 +52,6 @@ const ListItem = (props) => {
     }
 
 
-    //  TODO: is dit bog?
     useEffect(() => {
         ipcRenderer.on(channels.HANDLE_SAVE_DATA, handleNewAccount);
         return () => {
@@ -85,7 +84,7 @@ const ListItem = (props) => {
             <form onSubmit={handleSubmit}>
                 <input type="text" value={bal} onChange={handleChange}id="ListItemBalance"/>
             </form>
-            <Button onClick={deleteItem} hoverStyle="redHoverIn" buttonStyle="iconButton" ><i className="fa fa-trash"></i></Button>
+            <Button onClick={deleteItem} hoverStyle="redHoverIn" buttonStyle="iconButton" ><i className="fa fa-trash fa-2x"></i></Button>
         </div>
     );
 }

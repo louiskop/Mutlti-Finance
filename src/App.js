@@ -14,9 +14,17 @@ import Button from "./components/uiComponents/Button";
 
 // electron imports
 import { channels } from './shared/constants';
+import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
 const { ipcRenderer } = window.require('electron');
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      trigger : false,
+    };
+  }
 
   closeWindow() {
     ipcRenderer.send(channels.CLOSE_WINDOW);
@@ -24,6 +32,15 @@ class App extends Component {
 
   minWindow() {
     ipcRenderer.send(channels.MIN_WINDOW);
+  }
+
+  addTransRoute = () => {
+    this.setState({trigger:true});
+    console.log(`HOS ${this.state.trigger}`);
+  }
+  
+  exitTransRoute = () => {
+    this.setState({trigger:false});
   }
 
   render() {
@@ -37,7 +54,7 @@ class App extends Component {
               <Button onClick={this.minWindow} buttonStyle="menuBar" hoverStyle="grayHover"><i className="fas fa-window-minimize"></i></Button>
               <Button onClick={this.closeWindow} buttonStyle="menuBar" hoverStyle="redHover"><i className="fas fa-times"></i></Button>
             </div>
-            
+
           </div>
 
           <div className="navbar">
@@ -61,6 +78,10 @@ class App extends Component {
               </li>
             </ul>
           </div>
+          
+          <Button onClick={this.addTransRoute} buttonStyle="floatAct" hoverStyle="whiteHover"><i className="fa fa-plus fa-2x" aria-hidden="true"></i></Button>
+
+          <AddTrans exitPopup={this.exitTransRoute} trigger={this.state.trigger} />
 
           <div className="content">
             <Routes>
@@ -69,7 +90,6 @@ class App extends Component {
               <Route exact path="/incexp" element={<IncomeExpense />} />
               <Route exact path="/stats" element={<Stats />} />
               <Route exact path="/edit" element={<Edit />} />
-              <Route exact path="/addTrans" element={<AddTrans />} />
             </Routes>
           </div>
 

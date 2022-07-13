@@ -1,24 +1,24 @@
 
 // internal imports
-import React, { Component} from 'react';
+import React from 'react';
 
 // user imports
 import "../../css/pages/AddTrans.css";
+import Button from "../uiComponents/Button";
 
 
-class AddTrans extends Component {
+function AddTrans ({trigger, exitPopup}) {
 
-    render() {
+    return trigger ? (
 
-        return (
-
-            <div className="addTrans">
-                <h2>Here you can add a transaction</h2>
+        <div className="addTrans">
+            <div className="innerPopup">
+                <h2>Here you can add a transaction THIS IS A POPUP</h2>
+                <Button onClick={exitPopup} buttonStyle="exitPopup"><i id="exitPop" className="fas fa-times fa-2x"></i></Button>
             </div>
+        </div>
 
-        );
-
-    }
+    ) : "";
 
 }
 

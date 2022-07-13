@@ -13,3 +13,11 @@ export function saveDataInStorage(account) {
 export function deleteDataInStorage(account) {
     ipcRenderer.send(channels.DELETE_DATA_IN_STORAGE, account);
 }
+
+export function fetchTrans() {
+    ipcRenderer.send(channels.FETCH_TRANS, "trans");
+}
+
+export function saveTrans(trans) {
+    ipcRenderer.send(channels.SAVE_TRANS, trans);
+}
