@@ -15,6 +15,13 @@ function AddTrans ({trigger, exitPopup}) {
 
     const [accounts, setAccounts] = useState([]);
 
+    // form variables
+    const [type, setType] = useState("Income");
+    const [amount, setAmount] = useState();
+    const [account, setAccount] = useState("");
+    const [benefic, setBenefic] = useState("");
+    const [ref, setRef] = useState("");
+
     // TODO: validation
     //  check that at least one acc exists before adding trans
     //  check that expense can be paid!
@@ -36,7 +43,7 @@ function AddTrans ({trigger, exitPopup}) {
     const handleReceiveData = (event, data) => {
         // TODO: error handling
         setAccounts([...data.message]);
-        console.log(accounts);
+        setAccount(accounts[0].name);
     };
 
     const submitTrans = (e, data) => {
@@ -44,17 +51,22 @@ function AddTrans ({trigger, exitPopup}) {
         e.preventDefault('');
 
         let trans = {
-            reference: "huisdans",
-            type: "income",
-            amount: 50,
-            beneficiary: "Huis Visser",
-            account: "Kuier"
+            reference: ref,
+            type: type,
+            amount: parseInt(amount),
+            beneficiary: benefic,
+            account: account
         };
 
+        // TODO: check redundancy if popup is closed in any case
+        // clear form
+        setType("Income");
+        setAmount(0);
+        setBenefic("");
+        setAccount(accounts[0].name);
+        setRef("");
 
         addTrans(trans);
-        
-        
 
     }
 
@@ -64,9 +76,9 @@ function AddTrans ({trigger, exitPopup}) {
     }
 
     useEffect(() => {
-        ipcRenderer.on(channels.HANDLE_SAVE_DATA, saveTransComplete);
+        ipcRenderer.on(channels.HANDLE_SAVE_TRANS, saveTransComplete);
         return () => {
-            ipcRenderer.removeListener(channels.HANDLE_SAVE_DATA, saveTransComplete);
+            ipcRenderer.removeListener(channels.HANDLE_SAVE_TRANS, saveTransComplete);
         };
     });
 
@@ -74,34 +86,65 @@ function AddTrans ({trigger, exitPopup}) {
         exitPopup();
     }
 
+    // form value handlers
+    const typeChange = (e) => {
+        setType(e.target.value);
+    }
+
+    const amountChange = (e) => {
+        setAmount(e.target.value);
+    }
+
+    const accountChange = (e) => {
+        setAccount(e.target.value);
+    }
+
+    const beneficChange = (e) => {
+        setBenefic(e.target.value);
+    }
+
+    const refChange = (e) => {
+        setRef(e.target.value);
+    }
+
     return trigger ? (
 
         <div className="addTrans">
             <div className="innerPopup">
-                <h2>Add a transaction</h2>
+                <h1>Add a transaction</h1>
 
                 <form>
+
+                    <div>
                     <p>Type</p>
-                    <select name="type">
+                    <select value={type} onChange={typeChange} name="type">
                         <option value="Income">Income</option>
                         <option value="Expense">Expense</option>
                     </select>
+                    </div>
 
+                    <div>
                     <p>Amount</p>
-                    <input type="number" name="amount" placeholder="0.00"/>
+                    <input value={amount} onChange={amountChange} type="number" name="amount" placeholder="0.00"/>
+                    </div>
 
+                    <div>
                     <p>Account</p>
-                    <select name="account">
+                    <select value={account} onChange={accountChange} name="account">
                         { accounts.map(account => <option value={account.name}>{account.name}</option>) }
                     </select>
+                    </div>
 
+                    <div>
                     <p>Beneficiary</p>
-                    <input type="text" name="beneficiary" placeholder="John Doe"/>
+                    <input value={benefic} onChange={beneficChange} type="text" name="beneficiary" placeholder="John Doe"/>
                     // TODO: saved beneficiaries list and icon to save current, (COMBO BOX???)
+                    </div>
 
-
+                    <div>
                     <p>Reference</p>
-                    <input type="text" name="reference" placeholder="august_drug_money"/>
+                    <input value={ref} onChange={refChange} type="text" name="reference" placeholder="august_drug_money"/>
+                    </div>
 
                     <Button onClick={submitTrans} buttonStyle="floatAct" hoverStyle="whiteHover"><i class="fa fa-check fa-2x"></i></Button>
                 </form>

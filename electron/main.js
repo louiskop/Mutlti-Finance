@@ -8,8 +8,8 @@ const storage = require('electron-json-storage');
 
 // variables
 let mainWindow;
-let accountsToTrack;
-let transToTrack;
+let accountsToTrack = [];
+let transToTrack = [];
 let overWrite = false;
 
 console.log("\nINFORMATION: \n --Storage:" + app.getPath('userData') + "\n");
@@ -190,8 +190,7 @@ ipcMain.on(channels.SAVE_TRANS, (event,message) => {
 
     transToTrack.push(message);
 
-
-    storage.save('trans', transToTrack, (error) => {
+    storage.set('trans', transToTrack, (error) => {
 
         if(error){
             mainWindow.send(channels.HANDLE_SAVE_TRANS, {
