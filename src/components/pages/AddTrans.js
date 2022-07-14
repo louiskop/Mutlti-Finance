@@ -21,6 +21,7 @@ function AddTrans ({trigger, exitPopup}) {
     const [account, setAccount] = useState("");
     const [benefic, setBenefic] = useState("");
     const [ref, setRef] = useState("");
+    const [reset, setReset] = useState(0);
 
     // TODO: validation
     //  check that at least one acc exists before adding trans
@@ -29,7 +30,7 @@ function AddTrans ({trigger, exitPopup}) {
     // load accounts
     useEffect(() => {
         loadSavedData();
-    },[]);
+    },[reset]);
 
     // listen for handler for fetch
     useEffect(() => {
@@ -115,6 +116,7 @@ function AddTrans ({trigger, exitPopup}) {
 
                 <form>
 
+                    <div id="topTransDiv" >
                     <div>
                     <p>Type</p>
                     <select value={type} onChange={typeChange} name="type">
@@ -134,14 +136,15 @@ function AddTrans ({trigger, exitPopup}) {
                         { accounts.map(account => <option value={account.name}>{account.name}</option>) }
                     </select>
                     </div>
-
-                    <div>
-                    <p>Beneficiary</p>
-                    <input value={benefic} onChange={beneficChange} type="text" name="beneficiary" placeholder="John Doe"/>
-                    // TODO: saved beneficiaries list and icon to save current, (COMBO BOX???)
                     </div>
 
-                    <div>
+                    <div id="textFormDiv">
+                    <p>Beneficiary</p>
+                    <input value={benefic} onChange={beneficChange} type="text" name="beneficiary" placeholder="John Doe"/>
+                    {/* TODO: saved beneficiaries list and icon to save current, (COMBO BOX???) */}
+                    </div>
+
+                    <div id="textFormDiv1">
                     <p>Reference</p>
                     <input value={ref} onChange={refChange} type="text" name="reference" placeholder="august_drug_money"/>
                     </div>

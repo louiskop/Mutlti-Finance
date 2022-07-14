@@ -36,7 +36,7 @@
     height: 100%;
     display: grid;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
 }
@@ -45,7 +45,49 @@
     background-color: #0d0324;
     color: #EAF2EF;
     border:none;
+    width:12vw;
+    height:7vh;
+    font-size: 2rem;
 }
+
+.innerPopup form div {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 3fr;
+    justify-items: center;
+    align-items: center;
+    font-size: 1.7rem;
+}
+
+#topTransDiv {
+    grid-column: 1/7;
+    display:grid;
+    grid-template-rows: 1fr;
+    grid-template-columns:1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+
+#textFormDiv input, #textFormDiv select{
+    width:24vw;
+    height:7vh;
+}
+
+#textFormDiv1 input, #textFormDiv1 select{
+    width:24vw;
+    height:7vh;
+}
+
+#textFormDiv {
+    grid-row: 2;
+    grid-column: 1 / 4;
+}
+
+#textFormDiv1 {
+    grid-row: 2;
+    grid-column: 4 / 7x;
+}
+
 
 #exitPop {
     color: #EAF2EF;

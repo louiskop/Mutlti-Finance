@@ -187,7 +187,8 @@ ipcMain.on(channels.FETCH_TRANS, (event ,message) => {
 });
 
 ipcMain.on(channels.SAVE_TRANS, (event,message) => {
-
+    
+    // add and save transaction
     transToTrack.push(message);
 
     storage.set('trans', transToTrack, (error) => {
@@ -199,6 +200,30 @@ ipcMain.on(channels.SAVE_TRANS, (event,message) => {
             });
         }
 
+    });
+
+    // process transaction
+    accountsToTrack.map(account => {
+        if(account.name == message.account){
+            
+            if(message.type == "Income"){
+                accountsToTrack[accountsToTrack.indexOf(account)].balance += message.amount;
+            }else if(message.type == "Expense"){
+                accountsToTrack[accountsToTrack.indexOf(account)].balance -= message.amount;
+            }
+
+            // save new accs
+            storage.set('accounts', accountsToTrack, (error)=>{
+                if(error){
+                    mainWindow.send(channels.HANDLE_SAVE_TRANS, {
+                        success: false,
+                        message: "Could not update accounts"
+                    });
+                }
+            })
+
+            
+        }
     });
 
     mainWindow.send(channels.HANDLE_SAVE_TRANS, {
