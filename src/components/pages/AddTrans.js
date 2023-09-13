@@ -17,11 +17,10 @@ function AddTrans ({trigger, exitPopup}) {
 
     // form variables
     const [type, setType] = useState("Income");
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useState("");
     const [account, setAccount] = useState("");
     const [benefic, setBenefic] = useState("");
     const [ref, setRef] = useState("");
-    const [reset, setReset] = useState(0);
 
     // TODO: validation
     //  check that at least one acc exists before adding trans
@@ -30,7 +29,7 @@ function AddTrans ({trigger, exitPopup}) {
     // load accounts
     useEffect(() => {
         loadSavedData();
-    },[reset]);
+    },[]);
 
     // listen for handler for fetch
     useEffect(() => {
@@ -149,7 +148,7 @@ function AddTrans ({trigger, exitPopup}) {
                     <input value={ref} onChange={refChange} type="text" name="reference" placeholder="august_drug_money"/>
                     </div>
 
-                    <Button onClick={submitTrans} buttonStyle="floatAct" hoverStyle="whiteHover"><i class="fa fa-check fa-2x"></i></Button>
+                    <Button onClick={submitTrans} buttonStyle="floatAct" hoverStyle="whiteHover"><i className="fa fa-check fa-2x"></i></Button>
                 </form>
 
                 <Button onClick={exitPopup} buttonStyle="exitPopup"><i id="exitPop" className="fas fa-times fa-2x"></i></Button>

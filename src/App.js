@@ -1,5 +1,5 @@
 // package imports
-import React, { Component } from "react";
+import React , {useState} from "react";
 import { Route, Routes, NavLink, HashRouter } from "react-router-dom";
 
 // user imports
@@ -16,86 +16,84 @@ import Button from "./components/uiComponents/Button";
 import { channels } from './shared/constants';
 const { ipcRenderer } = window.require('electron');
 
-class App extends Component {
+const App = () => {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      trigger : false,
-    };
+  const [trigger, setTrigger] = useState(false);
+  const [reset, setReset] = useState(true);
+
+  const resetApp = () => {
+    setReset(!reset);
+    // setTrigger(false);
   }
 
-  closeWindow() {
+  const closeWindow = () => {
     ipcRenderer.send(channels.CLOSE_WINDOW);
   }
 
-  minWindow() {
+  const minWindow = () => {
     ipcRenderer.send(channels.MIN_WINDOW);
   }
 
-  addTransRoute = () => {
-    this.setState({trigger:true});
-    console.log(`HOS ${this.state.trigger}`);
+  const addTransRoute = () => {
+    setTrigger(true);
   }
   
-  exitTransRoute = () => {
-    this.setState({trigger:false});
+  const exitTransRoute = () => {
+    setTrigger(false);
   }
 
-  render() {
-    return (
-      <HashRouter>
-        <div className="app-container">
+  return (
+    <HashRouter>
+      <div className="app-container">
 
-          <div className="heading">
-            <h1>Multi-Finance</h1>
-            <div className="exitButtons">
-              <Button onClick={this.minWindow} buttonStyle="menuBar" hoverStyle="grayHover"><i className="fas fa-window-minimize"></i></Button>
-              <Button onClick={this.closeWindow} buttonStyle="menuBar" hoverStyle="redHover"><i className="fas fa-times"></i></Button>
-            </div>
-
-          </div>
-
-          <div className="navbar">
-            <ul>
-              <li>
-                <NavLink to="/">Balances</NavLink>
-              </li>
-              <li>
-                <NavLink to="/assets">Assets</NavLink>
-              </li>
-              <li>
-                <NavLink to="/incexp">Income & Expenses</NavLink>
-              </li>
-              <li>
-                <NavLink to="/stats">Statistics</NavLink>
-              </li>
-              <li>
-                <NavLink to="/edit">Edit</NavLink>
-              </li>
-              <li className="navbar_reserved">
-              </li>
-            </ul>
-          </div>
-          
-          <Button onClick={this.addTransRoute} buttonStyle="floatAct" hoverStyle="whiteHover"><i className="fa fa-plus fa-2x" aria-hidden="true"></i></Button>
-
-          <AddTrans exitPopup={this.exitTransRoute} trigger={this.state.trigger} />
-
-          <div className="content">
-            <Routes>
-              <Route exact path="/" element={<Balances />} />
-              <Route exact path="/assets" element={<Assets />} />
-              <Route exact path="/incexp" element={<IncomeExpense />} />
-              <Route exact path="/stats" element={<Stats />} />
-              <Route exact path="/edit" element={<Edit />} />
-            </Routes>
+        <div className="heading">
+          <h1>Multi-Finance</h1>
+          <div className="exitButtons">
+            <Button onClick={minWindow} buttonStyle="menuBar" hoverStyle="grayHover"><i className="fas fa-window-minimize"></i></Button>
+            <Button onClick={closeWindow} buttonStyle="menuBar" hoverStyle="redHover"><i className="fas fa-times"></i></Button>
           </div>
 
         </div>
-      </HashRouter>
-    );
-  }
+
+        <div className="navbar">
+          <ul>
+            <li>
+              <NavLink to="/">Balances</NavLink>
+            </li>
+            <li>
+              <NavLink to="/assets">Assets</NavLink>
+            </li>
+            <li>
+              <NavLink to="/incexp">Income & Expenses</NavLink>
+            </li>
+            <li>
+              <NavLink to="/stats">Statistics</NavLink>
+            </li>
+            <li>
+              <NavLink to="/edit">Edit</NavLink>
+            </li>
+            <li className="navbar_reserved">
+            </li>
+          </ul>
+        </div>
+        
+        <Button onClick={addTransRoute} buttonStyle="floatAct" hoverStyle="whiteHover"><i className="fa fa-plus fa-2x" aria-hidden="true"></i></Button>
+
+        <AddTrans reset={resetApp} exitPopup={exitTransRoute} trigger={trigger} />
+
+        <div className="content">
+          <Routes>
+            <Route exact path="/" element={<Balances/>} />
+            <Route exact path="/assets" element={<Assets/>} />
+            <Route exact path="/incexp" element={<IncomeExpense/>} />
+            <Route exact path="/stats" element={<Stats/>} />
+            <Route exact path="/edit" element={<Edit/>} />
+          </Routes>
+        </div>
+
+      </div>
+    </HashRouter>
+  );
 }
 
 export default App;

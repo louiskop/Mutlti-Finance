@@ -178,7 +178,7 @@ ipcMain.on(channels.FETCH_TRANS, (event ,message) => {
 
             mainWindow.send(channels.HANDLE_FETCH_TRANS, {
                 success: true,
-                message: message,
+                message: transToTrack,
             });
         }
 

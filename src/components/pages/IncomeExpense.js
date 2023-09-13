@@ -1,24 +1,58 @@
 
 // internal imports
-import React, { Component} from 'react';
+import React , { useState, useEffect } from 'react';
 
 // user imports
 import "../../css/pages/IncomeExpense.css";
+import { channels } from "../../shared/constants";
+import { fetchTrans } from '../../shared/storageFuncs';
+import TransItem from '../uiComponents/TransItem';
+
+// electron imports
+const { ipcRenderer } = window.require('electron');
 
 
-class IncomeExpense extends Component {
+const IncomeExpense = () => {
 
-    render() {
+    const [trans, setTrans] = useState([]);
 
-        return (
+    useEffect(() => {
+        fetchTrans();
+    },[]);
 
-            <div className="incomeexpense">
-                <h2>Here displays your income and expenses and see a transaction list</h2>
+    useEffect(() => {
+        ipcRenderer.on(channels.HANDLE_FETCH_TRANS, handleReceiveData);
+        return () => {
+            ipcRenderer.removeListener(channels.HANDLE_FETCH_TRANS, handleReceiveData);
+        };
+    });
+
+    const handleReceiveData = (e, data) => {
+        setTrans([...data.message]);
+    }
+
+    return (
+
+        <div className="incomeexpense">
+            
+            <div className="incomes">
+                <p>Income</p>
             </div>
 
-        );
+            <div className="expenses">
+                <p>Expenses</p>
+            </div>
+            
+            <div className="transList">
+                <p>List of all transactions</p>
+                <TransItem trans={{reference: "reference", account: "account", beneficiary: "beneficiary", amount: "amount"}}/>
+                { trans.map(tran => <TransItem trans={tran} />) }
+            </div>
+        
+        </div>
 
-    }
+    );
+
 
 }
 
